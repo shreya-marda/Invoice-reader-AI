@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+python-multipart
+pandas
+azure-ai-formrecognizer
+azure-core
+pymongo
+python-dotenv
+azure-storage-blob==12.10.0
+pandas
+openpyxl
+celery
+redis
