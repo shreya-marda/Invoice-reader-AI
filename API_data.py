@@ -188,13 +188,13 @@
 from fastapi import FastAPI, File, UploadFile, Query, Header, HTTPException
 import os
 from bson import ObjectId
-from config.config import collection
+from config.config import collection_invoices_data, collection_products
 from config.blob import AZURE_CONNECTION_STRING, AZURE_CONTAINER_NAME
 from azure.storage.blob import BlobServiceClient
 import io
 import logging
 from background_worker.invoice_tasks import process_invoice_files
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import pymongo
 import pandas as pd
 import numpy as np
@@ -215,15 +215,15 @@ container_client = blob_service_client.get_container_client(AZURE_CONTAINER_NAME
 # logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 # logger = logging.getLogger(__name__)
 
-load_dotenv()
+# load_dotenv()
 
-MONGO_URI = os.getenv("MONGODB_URI")
+# MONGO_URI = os.getenv("MONGODB_URI")
 
 # MongoDB Connection
-client = pymongo.MongoClient(MONGO_URI)
-db = client.promo
-collection_products = db.products
-collection_invoices_data = db.invoices
+# client = pymongo.MongoClient(MONGO_URI)
+# db = client.promo
+# collection_products = db.products
+# collection_invoices_data = db.invoices
 
 
 def convert_objectid(obj):
