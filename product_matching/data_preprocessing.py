@@ -1,26 +1,27 @@
 import os
 import re
 import openai
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import requests
 import pandas as pd
 import pymongo
+from config.config import OPENAI_API_KEY
 
-load_dotenv()
+# load_dotenv()
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 openai.api_key = OPENAI_API_KEY
-DATA_API_URL = os.getenv("DATA_API_URL")
+# DATA_API_URL = os.getenv("DATA_API_URL")
 
-load_dotenv()
+# load_dotenv()
 
-MONGO_URI = os.getenv("MONGODB_URI")
+# MONGO_URI = os.getenv("MONGODB_URI")
 
-# MongoDB Connection
-client = pymongo.MongoClient(MONGO_URI)
-db = client.promo
-collection_products = db.products
-collection_invoices_data = db.invoices
+# # MongoDB Connection
+# client = pymongo.MongoClient(MONGO_URI)
+# db = client.promo
+# collection_products = db.products
+# collection_invoices_data = db.invoices
 
 def clean_text(text):
     """Remove extra spaces, special characters, and convert to uppercase."""
