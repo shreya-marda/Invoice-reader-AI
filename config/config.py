@@ -12,7 +12,8 @@ key = os.getenv("AZURE_FORM_RECOGNIZER_KEY")
 MONGODB_URI = os.getenv("MONGODB_URI")
 client = pymongo.MongoClient(MONGODB_URI)
 db = client.promo
-collection = db.invoices
+collection_products = db.products
+collection_invoices_data = db.invoices
 
 # folder dir
 UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER")
