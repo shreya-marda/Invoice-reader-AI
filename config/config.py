@@ -21,3 +21,5 @@ UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER")
 # App_key
 APP_KEY = os.getenv("APP_KEY")
 
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
