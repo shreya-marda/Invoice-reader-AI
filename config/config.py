@@ -16,10 +16,10 @@ collection_products = db.products
 collection_invoices_data = db.invoices
 
 # folder dir
-UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER")
+# UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER")
 
-# App_key
+# App_Key
 APP_KEY = os.getenv("APP_KEY")
 
-
+# Open-API-Key
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
