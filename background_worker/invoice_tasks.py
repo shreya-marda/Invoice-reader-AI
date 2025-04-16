@@ -1,6 +1,6 @@
 from celery import Celery
 import requests
-from src.config import collection
+from config.config import collection
 from src.utils import convert_objectid, ObjectId, extract_zip_files
 from services.azure_service import upload_bytes_to_blob
 
