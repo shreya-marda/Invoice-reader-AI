@@ -203,6 +203,10 @@ from product_matching.data_preprocessing import preprocess, get_embedding
 from product_matching.search import search_product_by_vector
 from fastapi.encoders import jsonable_encoder
 from datetime import datetime
+from typing import Optional
+from src.utils import convert_objectid, convert_objectid_for_status, ObjectId
+
+
 
 logging.basicConfig(filename="app.log", level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
@@ -225,32 +229,6 @@ container_client = blob_service_client.get_container_client(AZURE_CONTAINER_NAME
 # collection_products = db.products
 # collection_invoices_data = db.invoices
 
-
-def convert_objectid(obj):
-    if isinstance(obj, ObjectId):
-        return str(obj)
-    elif isinstance(obj, dict):
-        return {k: convert_objectid(v) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [convert_objectid(item) for item in obj]
-    else:
-        return obj
-
-def convert_objectid_for_status(obj):
-    if isinstance(obj, dict):
-        new_obj = {}
-        for k, v in obj.items():
-            if k == "_id":
-                new_obj["invoice_id"] = str(v)
-            else:
-                new_obj[k] = convert_objectid_for_status(v)
-        return new_obj
-    elif isinstance(obj, list):
-        return [convert_objectid_for_status(item) for item in obj]
-    elif isinstance(obj, ObjectId):
-        return str(obj)
-    else:
-        return obj
     
 @app.post("/invoice-reader")
 async def invoice_reader(
@@ -315,8 +293,8 @@ def get_status(process_id: str):
 #             return {"error": "No data found for the given process_id"}
 #         return convert_objectid_for_status(records)
 
-@app.get("/invoice-data/")
-def get_invoice_data(process_id: str = Query(...), invoice_id: str = Query(None)):
+@app.get("/invoice-data/{process_id}/{invoice_id}")
+def get_invoice_data(process_id: str , invoice_id: Optional[str]= None):
     if invoice_id:
         record = collection.find_one({"process_id": process_id, "_id": invoice_id})
         if not record:
