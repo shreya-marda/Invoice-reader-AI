@@ -1,4 +1,4 @@
-from src.blob import AZURE_CONNECTION_STRING, AZURE_CONTAINER_NAME, endpoint, key
+from config.azure_config import AZURE_CONNECTION_STRING, AZURE_CONTAINER_NAME, endpoint, key
 from azure.storage.blob import BlobServiceClient
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.formrecognizer import DocumentAnalysisClient
