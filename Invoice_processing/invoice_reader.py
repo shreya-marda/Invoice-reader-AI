@@ -1,25 +1,9 @@
-from azure.core.credentials import AzureKeyCredential
-from azure.ai.formrecognizer import DocumentAnalysisClient
-from config.config import endpoint, key
 from datetime import date
 import pandas as pd
+from services.azure_service import poller_azure
 
-
-document_analysis_client = DocumentAnalysisClient(
-    endpoint=endpoint, credential=AzureKeyCredential(key)
-)
-
-# def analyze_invoice(file_path):
-#     path_to_sample_documents = file_path
-
-#     with open(path_to_sample_documents, "rb") as f:
-#         poller = document_analysis_client.begin_analyze_document(
-#             "prebuilt-invoice", document=f, locale="en-US"
-#         )
 def analyze_invoice(blob_url):
-    poller = document_analysis_client.begin_analyze_document_from_url(
-        "prebuilt-invoice", document_url=blob_url, locale="en-US"
-    )
+    poller = poller_azure(blob_url)
     invoices = poller.result()
     data_list = []
     data = {}
@@ -232,13 +216,6 @@ def analyze_invoice(blob_url):
                     }})
                     data_list.append(["Paid in Four Installments Amount", amount.value, amount.confidence])
 
-
-                # due_date = installment.value.get("DueDate")
-                # if due_date and due_date.value:
-                #     data.update({"Paid in Four Installments DueDate": {
-                #         "value": due_date.value,
-                #         "confidence": due_date.confidence
-                #     }})
 
                 due_date = installment.value.get("DueDate")
                 if due_date and due_date.value:
