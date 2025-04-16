@@ -187,15 +187,15 @@
 
 from fastapi import FastAPI, File, UploadFile, Query, Header, HTTPException
 import os
-from bson import ObjectId
+# from bson import ObjectId
 from config.config import collection_invoices_data, collection_products
-from config.blob import AZURE_CONNECTION_STRING, AZURE_CONTAINER_NAME
-from azure.storage.blob import BlobServiceClient
+# from config.blob import AZURE_CONNECTION_STRING, AZURE_CONTAINER_NAME
+# from azure.storage.blob import BlobServiceClient
 import io
 import logging
 from background_worker.invoice_tasks import process_invoice_files
 # from dotenv import load_dotenv
-import pymongo
+# import pymongo
 import pandas as pd
 import numpy as np
 from fastapi.responses import JSONResponse
@@ -206,15 +206,13 @@ from datetime import datetime
 from typing import Optional
 from src.utils import convert_objectid, convert_objectid_for_status, ObjectId
 
-
-
 logging.basicConfig(filename="app.log", level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
-blob_service_client = BlobServiceClient.from_connection_string(AZURE_CONNECTION_STRING)
-container_client = blob_service_client.get_container_client(AZURE_CONTAINER_NAME)
+# blob_service_client = BlobServiceClient.from_connection_string(AZURE_CONNECTION_STRING)
+# container_client = blob_service_client.get_container_client(AZURE_CONTAINER_NAME)
 
 # logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 # logger = logging.getLogger(__name__)
@@ -293,8 +291,8 @@ def get_status(process_id: str):
 #             return {"error": "No data found for the given process_id"}
 #         return convert_objectid_for_status(records)
 
-@app.get("/invoice-data/{process_id}/{invoice_id}")
-def get_invoice_data(process_id: str , invoice_id: Optional[str]= None):
+@app.get("/invoice-data/")
+def get_invoice_data(process_id: str = Query(...), invoice_id: str = Query(None)):
     if invoice_id:
         record = collection.find_one({"process_id": process_id, "_id": invoice_id})
         if not record:
