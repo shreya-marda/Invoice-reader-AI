@@ -4,9 +4,9 @@ import pymongo
 
 load_dotenv()
 
-# Azure credentials 
-endpoint = os.getenv("AZURE_FORM_RECOGNIZER_ENDPOINT")
-key = os.getenv("AZURE_FORM_RECOGNIZER_KEY")
+# # Azure credentials 
+# endpoint = os.getenv("AZURE_FORM_RECOGNIZER_ENDPOINT")
+# key = os.getenv("AZURE_FORM_RECOGNIZER_KEY")
 
 # Mongodb credentials 
 MONGODB_URI = os.getenv("MONGODB_URI")
